@@ -15,6 +15,7 @@ bool	check(char c, char *charset)
 	}
 	return (true);
 }
+
 int	countstrings(char *str, char *charset)
 {
 	int		index;
@@ -36,20 +37,26 @@ int	countstrings(char *str, char *charset)
 			flag = true;
 		index++;
 	}
-	return count ; 
+	return (count);
 }
-void	copystring(char *str, char **ptr, int index, int start, int end)
-{
-	int	j;
 
+char	*copystring(char *str, char **ptr, int start, int end)
+{
+	int		j;
+	char	*new_string;
+
+	new_string = malloc(end - start + 1);
+	if (!new_string)
+		return (NULL);
 	j = 0;
 	while (start < end)
 	{
-		ptr[index][j] = str[start];
+		new_string[j] = str[start];
 		start++;
 		j++;
 	}
-	ptr[index][end] = '\0';
+	new_string[j] = '\0';
+	return (new_string);
 }
 
 void	smallallocate(int numofstrings, char *str, char *charset, char **ptr)
@@ -63,34 +70,38 @@ void	smallallocate(int numofstrings, char *str, char *charset, char **ptr)
 	index = 0;
 	while (index < numofstrings)
 	{
-		while (!check(str[start], charset) && str[start])
+		while (str[start] && !check(str[start], charset))
 			start++;
-		while (check(str[end], charset) && str[end])
+		end = start;
+		while (str[end] && check(str[end], charset))
 			end++;
-		ptr[index] = malloc(end - start + 1);
-		copystring(str, ptr, index, start, end);
+		ptr[index] = copystring(str, ptr, start, end);
 		start = end;
 		index++;
 	}
 }
+
 char	**ft_split(char *str, char *charset)
 {
-	int numofstrings;
-	char **ptr;
+	int		numofstrings;
+	char	**ptr;
+
 	numofstrings = countstrings(str, charset);
 	ptr = malloc((numofstrings + 1) * sizeof(char *));
 	ptr[numofstrings] = NULL;
-	smallallocate(numofstrings,str, charset, ptr);
+	smallallocate(numofstrings, str, charset, ptr);
 	return (ptr);
 }
-int main () {
-char *c ; 
-char *arr ;
-char **n ; 
-c="ji" ; 
-arr = "mewojhiiijps" ;
-n = ft_split(arr , c) ; 
-printf("%s" , n[0]);
-printf("%s" , n[1]) ; 
-}
 
+// int	main(void)
+// {
+// 	char	**n;
+
+// 	printf("%d\n", countstrings("meow111meow222meow333", "123"));
+// 	n = ft_split("meow111meow222meow333", "123");
+// 	while (*n)
+// 	{
+// 		printf("%s\n", *n);
+// 		n++;
+// 	}
+// }

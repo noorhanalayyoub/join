@@ -36,6 +36,7 @@ int	countstrings(char *str, char *charset)
 			flag = true;
 		index++;
 	}
+	return count ; 
 }
 void	copystring(char *str, char **ptr, int index, int start, int end)
 {
@@ -51,7 +52,7 @@ void	copystring(char *str, char **ptr, int index, int start, int end)
 	ptr[index][end] = '\0';
 }
 
-void	smallallocate(char *str, char *charset, char **ptr)
+void	smallallocate(int numofstrings, char *str, char *charset, char **ptr)
 {
 	int	index;
 	int	start;
@@ -62,9 +63,9 @@ void	smallallocate(char *str, char *charset, char **ptr)
 	index = 0;
 	while (index < numofstrings)
 	{
-		while (!check(str[start], charset))
+		while (!check(str[start], charset) && str[start])
 			start++;
-		while (checl(str[start], carset))
+		while (check(str[end], charset) && str[end])
 			end++;
 		ptr[index] = malloc(end - start + 1);
 		copystring(str, ptr, index, start, end);
@@ -79,6 +80,17 @@ char	**ft_split(char *str, char *charset)
 	numofstrings = countstrings(str, charset);
 	ptr = malloc((numofstrings + 1) * sizeof(char *));
 	ptr[numofstrings] = NULL;
-	smallallocate(str, charset, ptr);
+	smallallocate(numofstrings,str, charset, ptr);
 	return (ptr);
 }
+int main () {
+char *c ; 
+char *arr ;
+char **n ; 
+c="ji" ; 
+arr = "mewojhiiijps" ;
+n = ft_split(arr , c) ; 
+printf("%s" , n[0]);
+printf("%s" , n[1]) ; 
+}
+

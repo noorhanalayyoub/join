@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalayyou <nalayyou@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: anashwan <anashwan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:07:39 by nalayyou          #+#    #+#             */
-/*   Updated: 2025/10/30 16:24:57 by nalayyou         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:42:06 by anashwan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 int	totlength(char **str, int size, char *sep)
@@ -34,9 +33,7 @@ int	totlength(char **str, int size, char *sep)
 	}
 	index = 0;
 	while (sep[index])
-	{
 		index++;
-	}
 	count += (size - 1) * index;
 	count++;
 	return (count);
@@ -55,20 +52,20 @@ void	copystring(int size, char **strs, char *sep, char *joinedstring)
 	{
 		j = 0;
 		while (strs[index][j])
-		{
-			joinedstring[m] = strs[index][j];
-			m++;
-			j++;
-		}
+			joinedstring[m++] = strs[index][j++];
 		j = 0;
-		while (sep[j])
+		if (index < size - 1)
 		{
-			joinedstring[m] = sep[j];
-			j++;
-			m++;
+			while (sep[j])
+			{
+				joinedstring[m] = sep[j];
+				j++;
+				m++;
+			}
 		}
 		index++;
 	}
+	joinedstring[m] = '\0';
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
@@ -76,23 +73,33 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	int		length;
 	char	*joinedstring;
 
+	if (size == 0)
+	{
+		joinedstring = malloc(1);
+		joinedstring[0] = '\0';
+		return (joinedstring);
+	}
 	length = totlength(strs, size, sep);
 	joinedstring = malloc(length * 1);
-	joinedstring[length] = '\0';
 	copystring(size, strs, sep, joinedstring);
 	return (joinedstring);
 }
-/*int main () {
-int a ;
-a=3 ; 
-char *strs[]={"hi" , "hi" ,"hi"} ; 
-char *c ; 
-char *ptr ;
-//strs[0] = "hi";
-//strs[1]="hioiio" ;
-//strs[2]="meoq" ;
-c="aa" ; 
-ptr = ft_strjoin(a , strs ,c) ; 
-printf("%s" ,ptr)  ;
 
-}*/
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int		a;
+// 	char	*strs[] = {"hi", "hi", "hi"};
+// 	char	*c;
+// 	char	*ptr;
+
+// 	a = 3;
+// 	// strs[0] = "hi";
+// 	// strs[1]="hioiio" ;
+// 	// strs[2]="meoq" ;
+// 	c = "aa";
+// 	ptr = ft_strjoin(a, strs, c);
+// 	printf("%s", ptr);
+// 	free(ptr);
+// }

@@ -1,5 +1,12 @@
 #include <stdlib.h>
 
+int		ft_strlen(char *str);
+int		char_to_val(char c, char *base);
+int		get_len(long n, int base_len);
+long	ft_atoi_base(char *str, char *base);
+char	*ft_putnbr_base_malloc(long n, char *base);
+int		is_valid_base(char *base);
+
 int	is_valid_base(char *base)
 {
 	int	i;
@@ -92,13 +99,28 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 }
 
 // #include <stdio.h>
+// #include <stdlib.h>
 
-// int main(void)
+// char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
+
+// int	main(void)
 // {
-//     char *res;
+// 	char	*res;
 
-//     res = ft_convert_base("101", "01", "0123456789");
-//     printf("%s\n", res);
-//     free(res);
-//     return (0);
+// 	res = ft_convert_base("101", "01", "0123456789");
+// 	printf("%s\n", res);
+// 	free(res);
+// 	res = ft_convert_base("-42", "0123456789", "01");
+// 	printf("%s\n", res);
+// 	free(res);
+// 	res = ft_convert_base("2A", "0123456789ABCDEF", "01");
+// 	printf("%s\n", res);
+// 	free(res);
+// 	res = ft_convert_base("poney", "poneyvif", "0123456789");
+// 	printf("%s\n", res);
+// 	free(res);
+// 	res = ft_convert_base("invalid", "01", "0123456789");
+// 	if (!res)
+// 		printf("NULL\n");
+// 	return (0);
 // }
